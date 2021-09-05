@@ -93,14 +93,14 @@ class Window(QtWidgets.QWidget):  # creating window class from QWidget
         sender = self.sender()  # getting info of the sender
         if sender.text() == 'Register':
             try:
-                if len(self.register_username.text()) == 0 or len(self.register_password.text()) == 0:
+                if len(self.register_username.text()) == 0 or len(self.register_password.text()) == 0: #control
                     raise ValueError
                 else:
                     cursor.execute('insert into people values(?,?)',
-                                   (self.register_username.text(), self.register_password.text()))
+                                   (self.register_username.text(), self.register_password.text())) #inserting values to database
                     con.commit()
                     self.register_status.setText('Registering successful...')
-                    self.register_username.clear()
+                    self.register_username.clear() #clearing input boxes
                     self.register_password.clear()
             except:
                 self.register_status.setText('There is a problem!')
@@ -109,7 +109,7 @@ class Window(QtWidgets.QWidget):  # creating window class from QWidget
         else:
             try:
                 cursor.execute('select * from people where username = ?', (self.login_username.text(),))
-                username_password = cursor.fetchall()
+                username_password = cursor.fetchall() #getting info of spesific username and commiting them to a list
                 password = username_password[0][1]
                 if self.login_password.text() == password:
                     self.login_status.setText('Successful to Login...')
@@ -123,6 +123,6 @@ class Window(QtWidgets.QWidget):  # creating window class from QWidget
                 self.login_status.setText('There is a problem!')
                 self.login_password.clear()
                 self.login_username.clear()
-app = QtWidgets.QApplication(sys.argv)
-window = Window()
-sys.exit((app.exec_()))
+app = QtWidgets.QApplication(sys.argv)#creating application
+window = Window() #calling __init__ func
+sys.exit((app.exec_())) 
