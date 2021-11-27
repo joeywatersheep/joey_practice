@@ -16,6 +16,14 @@ def return_binary(deca):
 				return _list
 				break
 			_list.append(num)
-			num **= 2
-	print(return_down_place_list(15))
-return_binary(12)
+			num *= 2
+	num_holder = deca
+	final_result = str()
+	for i in return_down_place_list(deca)[::-1]:
+		if num_holder >= i:
+			num_holder -= i
+			final_result += "1"
+		else:
+			final_result += "0"
+	return final_result
+
